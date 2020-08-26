@@ -46,6 +46,6 @@ int verificarOrdem(int vetor[], int N)
 
 int main()
 {
-    int vetor[] = {1, 1, 2, 2, 2, 2};
-    printf("Resultado: %i", verificarOrdem(vetor, 6));
+    int vetor[] = {0};
+    printf("Resultado: %i", verificarOrdem(vetor, 1));
 }
