@@ -10,6 +10,10 @@ Como a implementação utiliza um arranjo no qual a memória é alocada antes da
 
 Basta utilizar um loop para iterar sobre os elementos da lista até encontrar (ou não) a posição da chave passada.
 
+É possível também utilizar uma busca utilizado uma posição sentinela, de modo a facilitar a checagem de várias condições repetidamente.
+
 # Como inserir novos elementos na lista?
 
 Dada uma determinada posição, é necessário passar todos os elementos a partir desta posição para a direita e então substituir o elemento antigo da posição pelo novo.
+
+Caso for utilizado a inserção ordenada, é possível realizar um InsertionSort e se aproveitar de que os elementos estão ordenados para utilizar Busca Binária, ganhando em desempenho.

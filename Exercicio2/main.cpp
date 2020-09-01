@@ -28,6 +28,8 @@ int ocorrencias(LISTA* l, int x){
 bool comparacao(LISTA* l1, LISTA* l2){
     if(l1->nroElementos != l2->nroElementos) return false;
 
+    if(l1->nroElementos == 0 && l2->nroElementos == 0) return true;
+
     bool igual = false;
 
     for(int i = 0; i < l1->nroElementos; i++){
