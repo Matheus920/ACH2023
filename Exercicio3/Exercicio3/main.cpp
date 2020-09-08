@@ -149,16 +149,18 @@ void trocar(LISTA* l){
 
 void sobreescrever(LISTA* l, int i){
 
-    int pos = l->inicio;
-    int contador = 1;
+    if(i > 0){
+        int pos = l->inicio;
+        int contador = 1;
 
-    while(pos != INVALIDO && contador < i){
-        pos = l->A[pos].proximo;
-        contador++;
-    }
+        while(pos != INVALIDO && contador < i){
+            pos = l->A[pos].proximo;
+            contador++;
+        }
 
-    if(l->A[pos].proximo != INVALIDO) {
-        l->A[l->A[pos].proximo].reg.chave = l->A[pos].reg.chave;
+        if(l->A[pos].proximo != INVALIDO) {
+            l->A[l->A[pos].proximo].reg.chave = l->A[pos].reg.chave;
+        }
     }
 }
 
@@ -187,7 +189,7 @@ int main() {
 
     exibirLista(&l);
 
-    sobreescrever(&l, 5);
+    sobreescrever(&l, 10);
 
     exibirLista(&l);
 
