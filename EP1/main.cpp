@@ -1,3 +1,4 @@
+// Matheus Moreira da Silva
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
@@ -5,131 +6,203 @@
 
 
 // ######### ESCREVA O NROUSP AQUI
-char* nroUSP() {
+char* nroUSP()
+{
     return("11796490");
 }
 
 
 // ######### ESCREVA SEU NOME AQUI
-char* nome() {
+char* nome()
+{
     return("Matheus Moreira da Silva");
 }
 
 // elemento da lista
-typedef struct estr {
-        int valor;
-        struct estr* prox;
+typedef struct estr
+{
+    int valor;
+    struct estr* prox;
 } NO;
 
 
 // funcao principal
 NO* uniao(NO* p1, NO* p2);
 
-void copia(NO* listaBase, NO* listaACopiar);
+void copia(NO** listaBase, NO* listaACopiar);
 
-void inserirElemento(NO* lista, int valor);
+void inserirElemento(NO** lista, int valor);
+
+void exibirLista(NO* lista);
 
 //------------------------------------------
 // O EP consiste em implementar esta funcao
 // e outras funcoes auxiliares que esta
 // necessitar
 //------------------------------------------
-NO* uniao(NO* p1, NO* p2) {
+NO* uniao(NO* p1, NO* p2)
+{
 
-	NO* resp;
-	resp = NULL;
+    NO* resp;
+    resp = NULL;
 
-	if(!p1 && !p2) return resp;
+    if(!p1 && !p2) return resp;
 
-	else if(!p1) copia(resp, p2);
-	else if(!p2) copia(resp, p1);
-	else {
-        copia(resp, p1);
-        copia(resp, p2);
-	}
-
-	return resp;
-}
-
-void copia(NO* listaBase, NO* listaACopiar) {
-
-    if(!listaBase){
-            inserirElemento(listaBase, listaACopiar->valor);
-            listaACopiar = listaACopiar->prox;
+    else if(!p1) copia(&resp, p2);
+    else if(!p2) copia(&resp, p1);
+    else
+    {
+        copia(&resp, p1);
+        copia(&resp, p2);
     }
 
-    while(listaACopiar){
-        while(listaBase && listaBase->valor > listaACopiar->valor){
-            listaBase = listaBase->prox;
-        }
+    return resp;
+}
 
-        if(listaBase->valor != listaACopiar->valor){
-            inserirElemento(listaBase, listaACopiar->valor);
-        }
+void copia(NO** listaBase, NO* listaACopiar)
+{
 
+    if(!(*listaBase))
+    {
+        inserirElemento(listaBase, listaACopiar->valor);
+        listaACopiar = listaACopiar->prox;
+    }
+
+    while(listaACopiar)
+    {
+        inserirElemento(listaBase, listaACopiar->valor);
         listaACopiar = listaACopiar->prox;
     }
 
 }
 
-void inserirElemento(NO* lista, int valor){
-
-    if(!lista){
-        lista = (NO*) malloc(sizeof(NO*));
-        lista->valor = valor;
-        lista->prox = NULL;
-    } else {
-        while(lista->prox){
-            lista = lista->prox;
+void inserirElemento(NO** lista, int valor)
+{
+    if(!(*lista))
+    {
+        *lista = (NO*) malloc(sizeof(NO));
+        (*lista)->valor = valor;
+        (*lista)->prox = NULL;
+    }
+    else
+    {
+        NO* aux = *lista;
+        NO* ant = NULL;
+        while(aux->prox && aux->valor < valor)
+        {
+            ant = aux;
+            aux = aux->prox;
         }
-        lista->prox = (NO*) malloc(sizeof(NO*));
-        lista->prox->valor = valor;
-        lista->prox->prox = NULL;
+        if(aux->valor != valor)
+        {
+            if(ant && aux->valor > valor)
+            {
+                ant->prox = (NO*) malloc(sizeof(NO));
+                ant->prox->valor = valor;
+                ant->prox->prox = aux;
+            }
+            else
+            {
+                aux->prox = (NO*) malloc(sizeof(NO));
+                aux->prox->valor = valor;
+                aux->prox->prox = NULL;
+            }
+        }
+    }
+}
+
+void exibirLista(NO* lista)
+{
+    while(lista)
+    {
+        printf("%d ", lista->valor);
+        lista = lista->prox;
+    }
+}
+
+void inserirElementoTeste(NO** lista, int valor)
+{
+    if(!(*lista))
+    {
+        *lista = (NO*) malloc(sizeof(NO));
+        (*lista)->valor = valor;
+        (*lista)->prox = NULL;
+    }
+    else
+    {
+        NO* aux = *lista;
+        NO* ant = NULL;
+        while(aux->prox && aux->valor < valor)
+        {
+            ant = aux;
+            aux = aux->prox;
+        }
+        if(ant && aux->valor > valor)
+        {
+            NO* novoNo = (NO*) malloc(sizeof(NO));
+            novoNo->valor = valor;
+            ant->prox = novoNo;
+            novoNo->prox = aux;
+        }
+        else
+        {
+            aux->prox = (NO*) malloc(sizeof(NO));
+            aux->prox->valor = valor;
+            aux->prox->prox = NULL;
+        }
     }
 }
 
 //----------------------------------------------------------------
 // use main() apenas para fazer chamadas de teste ao seu programa
 //----------------------------------------------------------------
-int main() {
+int main()
+{
 
-	NO* p1 = null;
-	NO* p2 = null;
+    NO* p1 = NULL;
+    NO* p2 = NULL;
+    // aqui vc pode incluir codigo para inserir elementos
+    // de teste nas listas p1 e p2
+    inserirElementoTeste(&p1, 1);
+    inserirElementoTeste(&p1, 2);
+    inserirElementoTeste(&p1, 2);
+    inserirElementoTeste(&p1, 6);
+    inserirElementoTeste(&p1, 8);
+    inserirElementoTeste(&p1, 9);
 
-	// aqui vc pode incluir codigo para inserir elementos
-	// de teste nas listas p1 e p2
-    inserirElemento(p1, 1);
-    inserirElemento(p1, 2);
-    inserirElemento(p1, 2);
-    inserirElemento(p1, 3);
+    inserirElementoTeste(&p2, 1);
+    inserirElementoTeste(&p2, 2);
+    inserirElementoTeste(&p2, 4);
+    inserirElementoTeste(&p2, 5);
+    inserirElementoTeste(&p2, 7);
+    inserirElementoTeste(&p2, 7);
 
-	// o EP sera testado com chamadas deste tipo
-	NO* teste = null;
+    printf("\nLista P1 - Antes: \n");
 
-	teste = uniao(p1,p2);
+    exibirLista(p1);
 
+    printf("\nLista P2 - Antes: \n");
 
-	printf("Lista P1: ");
+    exibirLista(p2);
 
-	while(p1){
-        printf("%d", &p1->valor);
-        p1 = p1->prox;
-	}
+    // o EP sera testado com chamadas deste tipo
+    NO* teste = NULL;
 
+    teste = uniao(p1,p2);
 
-	printf("\nLista P2: ");
+    printf("\nLista P1: \n");
 
-	while(p2){
-        printf("%d", &p2->valor);
-        p2 = p2->prox;
-	}
+    exibirLista(p1);
 
-	printf("\n Resultado: ");
+    printf("\nLista P2: \n");
 
-	while(teste){
-        printf("%d", &teste->valor);
-        teste = teste->prox;
-	}
+    exibirLista(p2);
+
+    printf("\nResultado: \n");
+
+    exibirLista(teste);
+
+    return 0;
 
 }
 
