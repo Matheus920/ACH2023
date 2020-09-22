@@ -111,5 +111,105 @@ void inserirElemento(NO** lista, int valor)
     }
 }
 
+void exibirLista(NO* lista)
+{
+    while(lista)
+    {
+        printf("%d ", lista->valor);
+        lista = lista->prox;
+    }
+}
+
+void inserirElementoTeste(NO** lista, int valor)
+{
+    if(!(*lista))
+    {
+        *lista = (NO*) malloc(sizeof(NO));
+        (*lista)->valor = valor;
+        (*lista)->prox = NULL;
+    }
+    else
+    {
+        NO* aux = *lista;
+        NO* ant = NULL;
+        while(aux->prox && aux->valor < valor)
+        {
+            ant = aux;
+            aux = aux->prox;
+        }
+        if(ant && aux->valor > valor)
+        {
+            NO* novoNo = (NO*) malloc(sizeof(NO));
+            novoNo->valor = valor;
+            ant->prox = novoNo;
+            novoNo->prox = aux;
+        }
+        else
+        {
+            aux->prox = (NO*) malloc(sizeof(NO));
+            aux->prox->valor = valor;
+            aux->prox->prox = NULL;
+        }
+    }
+}
+
+//----------------------------------------------------------------
+// use main() apenas para fazer chamadas de teste ao seu programa
+//----------------------------------------------------------------
+int main()
+{
+
+    NO* p1 = NULL;
+    NO* p2 = NULL;
+    // aqui vc pode incluir codigo para inserir elementos
+    // de teste nas listas p1 e p2
+    inserirElementoTeste(&p1, 1);
+    inserirElementoTeste(&p1, 2);
+    inserirElementoTeste(&p1, 2);
+    inserirElementoTeste(&p1, 6);
+    inserirElementoTeste(&p1, 8);
+    inserirElementoTeste(&p1, 9);
+
+    inserirElementoTeste(&p2, 1);
+    inserirElementoTeste(&p2, 2);
+    inserirElementoTeste(&p2, 4);
+    inserirElementoTeste(&p2, 5);
+    inserirElementoTeste(&p2, 7);
+    inserirElementoTeste(&p2, 7);
+
+    printf("\nLista P1 - Antes: \n");
+
+    exibirLista(p1);
+
+    printf("\nLista P2 - Antes: \n");
+
+    exibirLista(p2);
+
+    // o EP sera testado com chamadas deste tipo
+    NO* teste = NULL;
+
+    teste = uniao(p1,p2);
+
+    printf("\nLista P1: \n");
+
+    exibirLista(p1);
+
+    printf("\nLista P2: \n");
+
+    exibirLista(p2);
+
+    printf("\nResultado: \n");
+
+    exibirLista(teste);
+
+    NO* teste2 = uniao(p2, teste);
+
+    printf("\nResultado: \n");
+
+    exibirLista(teste2);
+
+    return 0;
+
+}
 
 // por favor nao inclua nenhum código abaixo da função main()
