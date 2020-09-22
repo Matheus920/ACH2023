@@ -1,7 +1,6 @@
 // Matheus Moreira da Silva
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <malloc.h>
 
 
@@ -33,8 +32,6 @@ void copia(NO** listaBase, NO* listaACopiar);
 
 void inserirElemento(NO** lista, int valor);
 
-void exibirLista(NO* lista);
-
 //------------------------------------------
 // O EP consiste em implementar esta funcao
 // e outras funcoes auxiliares que esta
@@ -52,8 +49,13 @@ NO* uniao(NO* p1, NO* p2)
     else if(!p2) copia(&resp, p1);
     else
     {
-        copia(&resp, p1);
-        copia(&resp, p2);
+        if(p1->valor >= p2->valor){
+            copia(&resp, p2);
+            copia(&resp, p1);
+        } else {
+            copia(&resp, p1);
+            copia(&resp, p2);
+        }
     }
 
     return resp;

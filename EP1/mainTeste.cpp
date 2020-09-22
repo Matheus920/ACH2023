@@ -1,7 +1,6 @@
 // Matheus Moreira da Silva
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <malloc.h>
 
 
@@ -52,8 +51,13 @@ NO* uniao(NO* p1, NO* p2)
     else if(!p2) copia(&resp, p1);
     else
     {
-        copia(&resp, p1);
-        copia(&resp, p2);
+        if(p1->valor >= p2->valor){
+            copia(&resp, p2);
+            copia(&resp, p1);
+        } else {
+            copia(&resp, p1);
+            copia(&resp, p2);
+        }
     }
 
     return resp;
@@ -132,12 +136,12 @@ void inserirElementoTeste(NO** lista, int valor)
     {
         NO* aux = *lista;
         NO* ant = NULL;
-        while(aux->prox && aux->valor < valor)
+        while(aux->prox && aux->valor <= valor)
         {
             ant = aux;
             aux = aux->prox;
         }
-        if(ant && aux->valor > valor)
+        if(ant && aux->valor >= valor)
         {
             NO* novoNo = (NO*) malloc(sizeof(NO));
             novoNo->valor = valor;
@@ -163,19 +167,18 @@ int main()
     NO* p2 = NULL;
     // aqui vc pode incluir codigo para inserir elementos
     // de teste nas listas p1 e p2
-    inserirElementoTeste(&p1, 1);
-    inserirElementoTeste(&p1, 2);
-    inserirElementoTeste(&p1, 2);
-    inserirElementoTeste(&p1, 6);
-    inserirElementoTeste(&p1, 8);
-    inserirElementoTeste(&p1, 9);
+    inserirElementoTeste(&p1, 0);
+    inserirElementoTeste(&p1, 0);
+    inserirElementoTeste(&p1, 4);
+    inserirElementoTeste(&p1, 4);
+    inserirElementoTeste(&p1, 4);
+    inserirElementoTeste(&p1, 5);
 
-    inserirElementoTeste(&p2, 1);
-    inserirElementoTeste(&p2, 2);
-    inserirElementoTeste(&p2, 4);
-    inserirElementoTeste(&p2, 5);
-    inserirElementoTeste(&p2, 7);
-    inserirElementoTeste(&p2, 7);
+    inserirElementoTeste(&p2, 8);
+    inserirElementoTeste(&p2, 8);
+    inserirElementoTeste(&p2, 9);
+
+
 
     printf("\nLista P1 - Antes: \n");
 
@@ -202,9 +205,14 @@ int main()
 
     exibirLista(teste);
 
-    NO* teste2 = uniao(p2, teste);
+    NO* p3 = NULL;
+    inserirElementoTeste(&p3, 40);
+    inserirElementoTeste(&p3, 40);
+    inserirElementoTeste(&p3, 42);
 
-    printf("\nResultado: \n");
+    NO* teste2 = uniao(p3, teste);
+
+    printf("\nResultado 2: \n");
 
     exibirLista(teste2);
 
