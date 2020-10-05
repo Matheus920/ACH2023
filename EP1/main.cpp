@@ -1,7 +1,6 @@
 // Matheus Moreira da Silva
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <malloc.h>
 
 
@@ -64,13 +63,6 @@ NO* uniao(NO* p1, NO* p2)
 
 void copia(NO** listaBase, NO* listaACopiar)
 {
-
-    if(!(*listaBase))
-    {
-        inserirElemento(listaBase, listaACopiar->valor);
-        listaACopiar = listaACopiar->prox;
-    }
-
     while(listaACopiar)
     {
         inserirElemento(listaBase, listaACopiar->valor);

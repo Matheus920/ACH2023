@@ -1,7 +1,6 @@
 // Matheus Moreira da Silva
 #include <stdio.h>
 #include <stdlib.h>
-#include <conio.h>
 #include <malloc.h>
 
 
@@ -66,13 +65,6 @@ NO* uniao(NO* p1, NO* p2)
 
 void copia(NO** listaBase, NO* listaACopiar)
 {
-
-    if(!(*listaBase))
-    {
-        inserirElemento(listaBase, listaACopiar->valor);
-        listaACopiar = listaACopiar->prox;
-    }
-
     while(listaACopiar)
     {
         inserirElemento(listaBase, listaACopiar->valor);
@@ -168,18 +160,14 @@ int main()
     NO* p2 = NULL;
     // aqui vc pode incluir codigo para inserir elementos
     // de teste nas listas p1 e p2
-    inserirElementoTeste(&p1, 0);
-    inserirElementoTeste(&p1, 0);
-    inserirElementoTeste(&p1, 4);
-    inserirElementoTeste(&p1, 4);
-    inserirElementoTeste(&p1, 4);
-    inserirElementoTeste(&p1, 5);
+    inserirElementoTeste(&p1, 2);
+    inserirElementoTeste(&p1, 44);
+    inserirElementoTeste(&p1, 44);
+    inserirElementoTeste(&p1, 45);
 
-    inserirElementoTeste(&p2, 8);
-    inserirElementoTeste(&p2, 8);
-    inserirElementoTeste(&p2, 9);
-
-
+    inserirElementoTeste(&p2, 2);
+    inserirElementoTeste(&p2, 2);
+    inserirElementoTeste(&p2, 3);
 
     printf("\nLista P1 - Antes: \n");
 
