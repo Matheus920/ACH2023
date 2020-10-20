@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-//#include <conio.h>
+#include <conio.h>
 #include <malloc.h>
 #include <string.h>
 
@@ -268,26 +268,3 @@ bool verificaPrecedencia(char operador1, char operador2){
 
     if(operador1 == '/' || operador1 == '*') return false;
 }
-
-
-//----------------------------------------------------------------
-// use main() apenas para fazer chamadas de teste ao seu programa
-//----------------------------------------------------------------
-int main() {
-
-
-	// o EP sera testado com chamadas deste tipo
-
-	char exp[200];
-	strcpy(exp, "((1/3)+6)");
-
-	int codigo;
-
-	float resp = calcular(exp,&codigo);
-
-	printf("Resposta eh: %0.2f\nO codigo eh: %i", resp, codigo);
-
-
-}
-
-// por favor nao inclua nenhum código abaixo da função main()
