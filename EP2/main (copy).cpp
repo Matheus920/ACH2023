@@ -61,10 +61,12 @@ float calcular(char* expressao, int* codigo){
                 pilha = (NO*) malloc(sizeof(NO));
                 pilha->tipo = 2;
                 pilha->valor = saida->valor;
+                pilha->prox = NULL;
             } else {
                 NO* novo = (NO*) malloc(sizeof(NO));
                 novo->tipo = 2;
                 novo->valor = saida->valor;
+                novo->prox = NULL;
                 pilha = push(pilha, *novo);
             }
         } else if(saida->tipo == 1){
@@ -122,6 +124,7 @@ float calcular(char* expressao, int* codigo){
             NO* novo = (NO*) malloc(sizeof(NO));
             novo->tipo = 2;
             novo->valor = resultado;
+            novo->prox = NULL;
             pilha = push(pilha, *novo);
         }
         saida = saida->prox;
@@ -154,10 +157,12 @@ NO* converterExpressao(char* expressao, int* codigo){
                 saida = (NO*) malloc(sizeof(NO));
                 saida->tipo = 2;
                 saida->valor = expressao[i] - 48;
+                saida->prox = NULL;
             } else {
                 NO* novo = (NO*) malloc(sizeof(NO));
                 novo->tipo = 2;
-                novo-> valor = expressao[i] - 48;
+                novo->valor = expressao[i] - 48;
+                novo->prox = NULL;
                 anexar(&saida, *novo);
             }
         } else if(expressao[i] == '+' || expressao[i] == '-' || expressao[i] == '*' || expressao[i] == '/') {
@@ -166,6 +171,7 @@ NO* converterExpressao(char* expressao, int* codigo){
                 pilhaTemporaria = (NO*) malloc(sizeof(NO));
                 pilhaTemporaria->tipo = 1;
                 pilhaTemporaria->simbolo = expressao[i];
+                pilhaTemporaria->prox = NULL;
             } else {
                 NO* aux = pilhaTemporaria;
                 while(aux && aux->tipo==1){
@@ -179,6 +185,7 @@ NO* converterExpressao(char* expressao, int* codigo){
                 NO* novo = (NO*) malloc(sizeof(NO));
                 novo->tipo = 1;
                 novo->simbolo = expressao[i];
+                novo->prox = NULL;
                 pilhaTemporaria = push(pilhaTemporaria, *novo);
             }
         }
@@ -188,11 +195,13 @@ NO* converterExpressao(char* expressao, int* codigo){
                 pilhaTemporaria = (NO*) malloc(sizeof(NO));
                 pilhaTemporaria->tipo = 3;
                 pilhaTemporaria->simbolo = expressao[i];
+                pilhaTemporaria->prox = NULL;
             }
             else {
                 NO* novo = (NO*) malloc(sizeof(NO));
                 novo->tipo = 3;
                 novo->simbolo = expressao[i];
+                novo->prox = NULL;
                 pilhaTemporaria = push(pilhaTemporaria, *novo);
             }
         } else if(expressao[i] == ')'){
@@ -234,7 +243,7 @@ NO* push(NO* topo, NO insercao){
 
 NO* pop(NO** topo){
     NO* auxiliar = *topo;
-    NO* copia = (NO*) malloc(sizeof(NO*));
+    NO* copia = (NO*) malloc(sizeof(NO));
 
     *copia = *auxiliar;
 
@@ -256,6 +265,7 @@ void anexar(NO** elemento, NO anexo){
 
     NO* novo = (NO*) malloc(sizeof(NO));
     *novo = anexo;
+    novo->prox = NULL;
 
     aux->prox = novo;
 }
