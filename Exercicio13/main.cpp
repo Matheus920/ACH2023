@@ -7,24 +7,27 @@ typedef struct estrutura {
     estrutura* dir;
 } NO;
 
-void excluirFolha(NO** raiz, int ch){
-    if(*raiz){
-        excluirFolha(&((*raiz)->esq), ch);
-        excluirFolha(&((*raiz)->dir), ch);
-        if((*raiz)->chave == ch && !((*raiz)->esq) && !((*raiz)->dir)){
-            free(*raiz);
-            *raiz = NULL;
-            return;
+void exibirFolhas(NO* p){
+    if(p){
+        exibirFolhas(p->esq);
+        if(!p->dir && !p->esq){
+            printf("%i ", p->chave);
         }
+        exibirFolhas(p->dir);
     }
 }
 
-void exibirFolha(NO* p){
-    if(p){
+bool exibeAncestrais(NO* p, int chave){
+    if(!p) return false;
+
+    if(p->chave == chave) return true;
+
+    if(exibeAncestrais(p->esq, chave) || exibeAncestrais(p->dir, chave)){
         printf("%i ", p->chave);
-        exibirFolha(p->esq);
-        exibirFolha(p->dir);
+        return true;
     }
+
+    return false;
 }
 
 int main(){
@@ -41,7 +44,7 @@ int main(){
     raiz->dir = direito;
 
     NO* esquerdo = (NO*) malloc(sizeof(NO));
-    esquerdo->chave = 15;
+    esquerdo->chave = 2;
     esquerdo->esq = NULL;
     esquerdo->dir = NULL;
 
@@ -54,11 +57,6 @@ int main(){
 
     raiz->esq = esquerdo;
 
-    exibirFolha(raiz);
-
-    excluirFolha(&raiz, 10);
-
-    printf("\n");
-
-    exibirFolha(raiz);
+    printf("Altura: %i", (altura(esquerdoFilho)));
+    printf("Menor chave: %i", menorChave(raiz));
 }
